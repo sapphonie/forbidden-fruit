@@ -1,6 +1,6 @@
-
 const Module = require('../Module.js');
 
+/* eslint-disable object-property-newline */
 // noinspection JSUnusedGlobalSymbols
 module.exports = class ShareScreenCrack extends Module {
   get info () {
@@ -13,9 +13,11 @@ module.exports = class ShareScreenCrack extends Module {
   start () {
     const user = this.getModule([ 'getCurrentUser' ], false);
 
-    this.inject(user, 'getCurrentUser', (args, res) => {
-      res.premiumType = 2;
-      return res;
+    this.inject(user, 'getCurrentUser', (_, res) => {
+      const newRes = Object.create(res);
+      newRes.premiumType = 2;
+
+      return newRes;
     });
   }
 };
